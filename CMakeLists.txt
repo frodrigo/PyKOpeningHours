@@ -27,22 +27,23 @@ ExternalProject_Add(ECMExternal
 )
 
 ExternalProject_Add(KOpeningHoursExternal
-   PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
-   GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
-   GIT_TAG "6c903a0"
-   CMAKE_ARGS
+    PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
+    #GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
+    GIT_REPOSITORY https://invent.kde.org/dfaure/kopeninghours.git
+    GIT_TAG "22222ff"
+    CMAKE_ARGS
        -DPARSER_ONLY=TRUE
        -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
        -DCMAKE_BUILD_TYPE=Release
-   LOG_BUILD 0 # show errors on stderr
+    LOG_BUILD 0 # show errors on stderr
 )
 add_dependencies(KOpeningHoursExternal ECMExternal)
 # FetchContent would make all this simpler, but it requires cmake >= 3.11
 set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
 add_library(KOpeningHours IMPORTED SHARED)
 set_target_properties(KOpeningHours PROPERTIES
-   IMPORTED_LOCATION "${kopeninghours_lib}"
-   INTERFACE_LINK_LIBRARIES Qt5::Core
+    IMPORTED_LOCATION "${kopeninghours_lib}"
+    INTERFACE_LINK_LIBRARIES Qt5::Core
 )
 add_dependencies(KOpeningHours KOpeningHoursExternal)
 # workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/15052
