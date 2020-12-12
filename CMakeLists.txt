@@ -29,10 +29,11 @@ set(kopeninghours_lib "${KOPENINGHOURS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_S
 add_library(KOpeningHours IMPORTED SHARED)
 set_target_properties(KOpeningHours PROPERTIES
    IMPORTED_LOCATION "${kopeninghours_lib}"
-   INTERFACE_INCLUDE_DIRECTORIES "${KOPENINGHOURS_PREFIX}/include"
    INTERFACE_LINK_LIBRARIES Qt5::Core
 )
 add_dependencies(KOpeningHours KOpeningHoursExternal)
+# workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/15052
+include_directories("${KOPENINGHOURS_PREFIX}/include")
 
 #find_package(KOpeningHours REQUIRED)
 
