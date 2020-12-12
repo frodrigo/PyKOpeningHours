@@ -1,6 +1,8 @@
 #include <boost/python.hpp>
 #include <QByteArray>
 
+using namespace boost::python;
+
 struct QByteArray_to_python_str
 {
   static PyObject* convert(QByteArray const& s)

@@ -42,6 +42,7 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 
 add_library(PyKOpeningHours MODULE
     pykopeninghours.cpp
+    python_qt_wrappers.cpp
     test.py # just so it appears in QtCreator
 )
 
