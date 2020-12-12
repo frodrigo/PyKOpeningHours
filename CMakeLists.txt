@@ -10,22 +10,35 @@ find_package(PythonLibs 3.6 REQUIRED)
 find_package(Boost COMPONENTS python REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
-# Build KOpeningHours automatically
+# Build KOpeningHours automatically, starting with ECM
 include(GNUInstallDirs) # sets CMAKE_INSTALL_LIBDIR
 include(ExternalProject)
-set(KOPENINGHOURS_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/external")
+set(EXTERNAL_PROJECTS_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/external")
+
+ExternalProject_Add(ECMExternal
+   PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
+   GIT_REPOSITORY https://invent.kde.org/frameworks/extra-cmake-modules.git
+   GIT_TAG "v5.77.0"
+   CMAKE_ARGS
+       -DBUILD_TESTING=FALSE
+       -DCMAKE_DISABLE_FIND_PACKAGE_Sphinx=TRUE
+       -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
+   LOG_BUILD 0 # show errors on stderr
+)
+
 ExternalProject_Add(KOpeningHoursExternal
-   PREFIX "${KOPENINGHOURS_PREFIX}"
+   PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
    GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
    GIT_TAG "6c903a0"
    CMAKE_ARGS
        -DPARSER_ONLY=TRUE
-       -DCMAKE_INSTALL_PREFIX=${KOPENINGHOURS_PREFIX}
+       -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
        -DCMAKE_BUILD_TYPE=Release
    LOG_BUILD 0 # show errors on stderr
 )
+add_dependencies(KOpeningHoursExternal ECMExternal)
 # FetchContent would make all this simpler, but it requires cmake >= 3.11
-set(kopeninghours_lib "${KOPENINGHOURS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
 add_library(KOpeningHours IMPORTED SHARED)
 set_target_properties(KOpeningHours PROPERTIES
    IMPORTED_LOCATION "${kopeninghours_lib}"
@@ -33,7 +46,7 @@ set_target_properties(KOpeningHours PROPERTIES
 )
 add_dependencies(KOpeningHours KOpeningHoursExternal)
 # workaround for https://gitlab.kitware.com/cmake/cmake/-/issues/15052
-include_directories("${KOPENINGHOURS_PREFIX}/include")
+include_directories("${EXTERNAL_PROJECTS_PREFIX}/include")
 
 #find_package(KOpeningHours REQUIRED)
 
