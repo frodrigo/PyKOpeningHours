@@ -30,7 +30,7 @@ ExternalProject_Add(KOpeningHoursExternal
     PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
     #GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
     GIT_REPOSITORY https://invent.kde.org/dfaure/kopeninghours.git
-    GIT_TAG "22222ff"
+    #GIT_TAG "TODO"
     CMAKE_ARGS
        -DPARSER_ONLY=TRUE
        -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
