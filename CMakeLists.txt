@@ -28,11 +28,10 @@ ExternalProject_Add(ECMExternal
 
 ExternalProject_Add(KOpeningHoursExternal
     PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
-    #GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
-    GIT_REPOSITORY https://invent.kde.org/dfaure/kopeninghours.git
-    #GIT_TAG "TODO"
+    GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
+    GIT_TAG "111b241"
     CMAKE_ARGS
-       -DPARSER_ONLY=TRUE
+       -DVALIDATOR_ONLY=TRUE
        -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
        -DCMAKE_BUILD_TYPE=Release
     LOG_BUILD 0 # show errors on stderr
@@ -63,7 +62,7 @@ add_library(PyKOpeningHours MODULE
     test.py # just so it appears in QtCreator
 )
 
-target_compile_definitions(PyKOpeningHours PRIVATE OH_PARSER_ONLY)
+target_compile_definitions(PyKOpeningHours PRIVATE KOPENINGHOURS_VALIDATOR_ONLY)
 
 # Set up the libraries and header search paths for this target
 target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} KOpeningHours)
