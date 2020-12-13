@@ -39,6 +39,9 @@ ExternalProject_Add(KOpeningHoursExternal
 )
 add_dependencies(KOpeningHoursExternal ECMExternal)
 # FetchContent would make all this simpler, but it requires cmake >= 3.11
+if (EXISTS "/etc/debian_version") # GNUInstallDirs only does this if the prefix is /usr, ECM does it always
+    set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}")
+endif()
 set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
 add_library(KOpeningHours IMPORTED SHARED)
 set_target_properties(KOpeningHours PROPERTIES
