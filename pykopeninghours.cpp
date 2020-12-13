@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2020 David Faure <faure@kde.org>
+
+    SPDX-License-Identifier: AGPL-3.0-or-later
+*/
 #include <boost/python.hpp>
 #include "python_qt_wrappers.h"
 #include <KOpeningHours/OpeningHours>
