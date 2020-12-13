@@ -72,3 +72,5 @@ target_compile_definitions(PyKOpeningHours PRIVATE KOPENINGHOURS_VALIDATOR_ONLY)
 # Set up the libraries and header search paths for this target
 target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} KOpeningHours)
 target_include_directories(PyKOpeningHours PRIVATE ${PYTHON_INCLUDE_DIRS})
+
+install(TARGETS PyKOpeningHours DESTINATION .)
