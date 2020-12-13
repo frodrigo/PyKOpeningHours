@@ -5,9 +5,14 @@ project(PyKOpeningHours VERSION 1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Find python and Boost - both are required dependencies
 find_package(PythonLibs 3.6 REQUIRED)
-find_package(Boost COMPONENTS python REQUIRED)
+# Extract major/minor python version
+string(REPLACE "." ";" VERSION_LIST ${PYTHONLIBS_VERSION_STRING})
+list(GET VERSION_LIST 0 PYTHONLIBS_VERSION_MAJOR)
+list(GET VERSION_LIST 1 PYTHONLIBS_VERSION_MINOR)
+
+# boost-python requires exact version number
+find_package(Boost COMPONENTS python${PYTHONLIBS_VERSION_MAJOR}${PYTHONLIBS_VERSION_MINOR} REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
 # Build KOpeningHours automatically, starting with ECM
