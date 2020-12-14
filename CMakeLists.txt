@@ -31,6 +31,12 @@ ExternalProject_Add(ECMExternal
    LOG_BUILD 0 # show errors on stderr
 )
 
+# FetchContent would make all this simpler, but it requires cmake >= 3.11
+if (EXISTS "/etc/debian_version") # GNUInstallDirs only does this if the prefix is /usr, ECM does it always
+    set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}")
+endif()
+set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
+
 ExternalProject_Add(KOpeningHoursExternal
     PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
     GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
@@ -40,13 +46,9 @@ ExternalProject_Add(KOpeningHoursExternal
        -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
        -DCMAKE_BUILD_TYPE=Release
     LOG_BUILD 0 # show errors on stderr
+    BUILD_BYPRODUCTS <INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}
 )
 add_dependencies(KOpeningHoursExternal ECMExternal)
-# FetchContent would make all this simpler, but it requires cmake >= 3.11
-if (EXISTS "/etc/debian_version") # GNUInstallDirs only does this if the prefix is /usr, ECM does it always
-    set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}")
-endif()
-set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
 add_library(KOpeningHours IMPORTED SHARED)
 set_target_properties(KOpeningHours PROPERTIES
     IMPORTED_LOCATION "${kopeninghours_lib}"
@@ -73,4 +75,5 @@ target_compile_definitions(PyKOpeningHours PRIVATE KOPENINGHOURS_VALIDATOR_ONLY)
 target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} KOpeningHours)
 target_include_directories(PyKOpeningHours PRIVATE ${PYTHON_INCLUDE_DIRS})
 
-install(TARGETS PyKOpeningHours DESTINATION .)
+install(TARGETS PyKOpeningHours DESTINATION lib/PyKOpeningHours)
+install(FILES __init__.py DESTINATION lib/PyKOpeningHours)

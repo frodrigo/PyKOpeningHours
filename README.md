@@ -11,7 +11,11 @@ This python wrapper, developed using boost::python, makes that library available
 Building
 ========
 
-The usual for any cmake project:
+To build it the python way:
+
+python3 setup.py build
+
+Or to build it the usually way for any cmake project:
 
 mkdir build
 cd build
