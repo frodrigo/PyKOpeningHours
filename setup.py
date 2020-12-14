@@ -7,6 +7,6 @@ setup(
     author='David Faure',
     license="AGPL",
     packages=['PyKOpeningHours'],
-    package_dir={'': 'lib'},
+    package_dir={'': 'src'},
     cmake_install_dir='lib/PyKOpeningHours'
 )

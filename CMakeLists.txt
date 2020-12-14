@@ -63,9 +63,12 @@ include_directories("${EXTERNAL_PROJECTS_PREFIX}/include")
 # Without this, any build libraries automatically have names "lib{x}.so"
 set(CMAKE_SHARED_MODULE_PREFIX "")
 
+# The src subdir is a workaround until https://github.com/scikit-build/scikit-build/pull/522 is merged
+set(SRC src/PyKOpeningHours)
+
 add_library(PyKOpeningHours MODULE
-    pykopeninghours.cpp
-    python_qt_wrappers.cpp
+    ${SRC}/pykopeninghours.cpp
+    ${SRC}/python_qt_wrappers.cpp
     test.py # just so it appears in QtCreator
 )
 
@@ -76,4 +79,4 @@ target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARI
 target_include_directories(PyKOpeningHours PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 install(TARGETS PyKOpeningHours DESTINATION lib/PyKOpeningHours)
-install(FILES __init__.py DESTINATION lib/PyKOpeningHours)
+install(FILES ${SRC}/__init__.py DESTINATION lib/PyKOpeningHours)
