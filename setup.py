@@ -2,7 +2,7 @@ from skbuild import setup
 
 setup(
     name="PyKOpeningHours package",
-    version="1.0.0",
+    version="1.2.0",
     description="Validator for OSM opening_hours expressions",
     author='David Faure',
     license="AGPL",
