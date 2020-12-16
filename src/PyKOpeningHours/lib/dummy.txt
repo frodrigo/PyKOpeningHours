@@ -1,2 +1,0 @@
-This directory only exists to silence an error from `pip install`
-error: error in 'egg_base' option: 'lib' does not exist or is not a directory
