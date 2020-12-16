@@ -64,7 +64,6 @@ include_directories("${EXTERNAL_PROJECTS_PREFIX}/include")
 # Without this, any build libraries automatically have names "lib{x}.so"
 set(CMAKE_SHARED_MODULE_PREFIX "")
 
-# The src subdir is a workaround until https://github.com/scikit-build/scikit-build/pull/522 is merged
 set(SRC PyKOpeningHours)
 
 add_library(PyKOpeningHours MODULE
@@ -79,5 +78,7 @@ target_compile_definitions(PyKOpeningHours PRIVATE KOPENINGHOURS_VALIDATOR_ONLY)
 target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARIES} KOpeningHours)
 target_include_directories(PyKOpeningHours PRIVATE ${PYTHON_INCLUDE_DIRS})
 
-install(TARGETS PyKOpeningHours DESTINATION lib/PyKOpeningHours)
-install(FILES ${SRC}/PyKOpeningHours.pyi ${SRC}/__init__.py DESTINATION lib/PyKOpeningHours)
+set(_install_dir lib/python${PYTHONLIBS_VERSION_MAJOR}.${PYTHONLIBS_VERSION_MINOR}/site-packages)
+
+install(TARGETS PyKOpeningHours DESTINATION ${_install_dir}/PyKOpeningHours)
+install(FILES ${SRC}/PyKOpeningHours.pyi ${SRC}/__init__.py DESTINATION ${_install_dir}/PyKOpeningHours)
