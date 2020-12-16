@@ -80,4 +80,4 @@ target_link_libraries(PyKOpeningHours PUBLIC ${Boost_LIBRARIES} ${PYTHON_LIBRARI
 target_include_directories(PyKOpeningHours PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 install(TARGETS PyKOpeningHours DESTINATION lib/PyKOpeningHours)
-install(FILES ${SRC}/PyKOpeningHours.pyi DESTINATION lib/PyKOpeningHours)
+install(FILES ${SRC}/PyKOpeningHours.pyi ${SRC}/__init__.py DESTINATION lib/PyKOpeningHours)
