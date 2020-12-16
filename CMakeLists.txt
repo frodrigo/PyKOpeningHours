@@ -35,7 +35,7 @@ ExternalProject_Add(ECMExternal
 if (EXISTS "/etc/debian_version") # GNUInstallDirs only does this if the prefix is /usr, ECM does it always
     set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}")
 endif()
-set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}")
+set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}KOpeningHours${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
 ExternalProject_Add(KOpeningHoursExternal
     PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
@@ -43,10 +43,11 @@ ExternalProject_Add(KOpeningHoursExternal
     GIT_TAG "73a2ff2"
     CMAKE_ARGS
        -DVALIDATOR_ONLY=TRUE
+       -DBUILD_SHARED_LIBS=FALSE
        -DCMAKE_INSTALL_PREFIX=${EXTERNAL_PROJECTS_PREFIX}
        -DCMAKE_BUILD_TYPE=Release
     LOG_BUILD 0 # show errors on stderr
-    BUILD_BYPRODUCTS <INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KOpeningHours${CMAKE_SHARED_LIBRARY_SUFFIX}
+    BUILD_BYPRODUCTS <INSTALL_DIR>/${CMAKE_INSTALL_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}KOpeningHours${CMAKE_STATIC_LIBRARY_SUFFIX}
 )
 add_dependencies(KOpeningHoursExternal ECMExternal)
 add_library(KOpeningHours IMPORTED SHARED)
