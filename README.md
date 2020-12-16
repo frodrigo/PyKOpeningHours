@@ -13,14 +13,18 @@ Building
 
 To build it the python way:
 
-python3 setup.py build
+`python3 setup.py build`
+or
+`pip install .`
 
 Or to build it the usually way for any cmake project:
 
+```
 mkdir build
 cd build
 cmake ..
 make
+```
 
 And for testing:
 

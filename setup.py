@@ -8,5 +8,5 @@ setup(
     license="AGPL",
     packages=['PyKOpeningHours'],
     package_dir={'': 'src'},
-    cmake_install_dir='lib/PyKOpeningHours'
+    cmake_install_dir=''
 )
