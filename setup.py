@@ -7,6 +7,4 @@ setup(
     author='David Faure',
     license="AGPL",
     packages=['PyKOpeningHours'],
-    package_dir={'': 'src'},
-    cmake_install_dir=''
 )

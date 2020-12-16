@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import PyKOpeningHours
+from PyKOpeningHours import PyKOpeningHours
 
 parser = PyKOpeningHours.OpeningHours()
 parser.setExpression('Friday 11:00 am - 11:00 pm')

@@ -65,7 +65,7 @@ include_directories("${EXTERNAL_PROJECTS_PREFIX}/include")
 set(CMAKE_SHARED_MODULE_PREFIX "")
 
 # The src subdir is a workaround until https://github.com/scikit-build/scikit-build/pull/522 is merged
-set(SRC src/PyKOpeningHours)
+set(SRC PyKOpeningHours)
 
 add_library(PyKOpeningHours MODULE
     ${SRC}/pykopeninghours.cpp
