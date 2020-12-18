@@ -6,5 +6,6 @@ setup(
     description="Validator for OSM opening_hours expressions",
     author='David Faure',
     license="AGPL",
+    package_data={'PyKOpeningHours': ['py.typed', 'PyKOpeningHours.pyi']},
     packages=['PyKOpeningHours'],
 )
