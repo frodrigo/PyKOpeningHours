@@ -40,7 +40,7 @@ set(kopeninghours_lib "${EXTERNAL_PROJECTS_PREFIX}/${CMAKE_INSTALL_LIBDIR}/${CMA
 ExternalProject_Add(KOpeningHoursExternal
     PREFIX "${EXTERNAL_PROJECTS_PREFIX}"
     GIT_REPOSITORY https://invent.kde.org/libraries/kopeninghours.git
-    GIT_TAG "73a2ff2"
+    GIT_TAG "3cd8d78"
     CMAKE_ARGS
        -DVALIDATOR_ONLY=TRUE
        -DBUILD_SHARED_LIBS=FALSE
